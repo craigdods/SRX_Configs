@@ -1,0 +1,41 @@
+set interfaces st0 unit 0 family inet address 172.16.30.1/30
+set security zones security-zone VPN interfaces st0.0
+set security ike proposal ike_aes_128 dh-group group2
+set security ike proposal ike_aes_128 authentication-method pre-shared-keys
+set security ike proposal ike_aes_128 authentication-algorithm sha1
+set security ike proposal ike_aes_128 encryption-algorithm aes-128-cbc
+set security ike policy phase1_aes_128 mode main
+set security ike policy phase1_aes_128 pre-shared-key ascii-text vpn123
+set security ike policy phase1_aes_128 proposals ike_aes_128
+set security ike gateway SRX210_B ike-policy phase1_aes_128
+set security ike gateway SRX210_B external-interface ae1.0
+set security ike gateway SRX210_B address 172.19.1.2
+set security ipsec proposal ipsec_aes_128 protocol esp
+set security ipsec proposal ipsec_aes_128 authentication-algorithm hmac-sha1-96
+set security ipsec proposal ipsec_aes_128 encryption-algorithm aes-128-cbc
+set security ipsec policy phase2_aes_128 proposals ipsec_aes_128
+set security ipsec vpn VPN_To_SRX210_B ike gateway SRX210_B
+set security ipsec vpn VPN_To_SRX210_B ike ipsec-policy phase2_aes_128
+set security ipsec vpn VPN_To_SRX210_B establish-tunnels immediately 
+set security ipsec vpn VPN_To_SRX210_B bind-interface st0.0
+
+set interfaces st0 unit 0 family inet address 172.16.30.2/30
+set security zones security-zone VPN interfaces st0.0
+set security ike proposal ike_aes_128 dh-group group2
+set security ike proposal ike_aes_128 authentication-method pre-shared-keys
+set security ike proposal ike_aes_128 authentication-algorithm sha1
+set security ike proposal ike_aes_128 encryption-algorithm aes-128-cbc
+set security ike policy phase1_aes_128 mode main
+set security ike policy phase1_aes_128 pre-shared-key ascii-text vpn123
+set security ike policy phase1_aes_128 proposals ike_aes_128
+set security ike gateway SRX210_A ike-policy phase1_aes_128
+set security ike gateway SRX210_A external-interface ae1.0
+set security ike gateway SRX210_A address 172.19.1.1
+set security ipsec proposal ipsec_aes_128 protocol esp
+set security ipsec proposal ipsec_aes_128 authentication-algorithm hmac-sha1-96
+set security ipsec proposal ipsec_aes_128 encryption-algorithm aes-128-cbc
+set security ipsec policy phase2_aes_128 proposals ipsec_aes_128
+set security ipsec vpn VPN_To_SRX210_A ike gateway SRX210_A
+set security ipsec vpn VPN_To_SRX210_A ike ipsec-policy phase2_aes_128
+set security ipsec vpn VPN_To_SRX210_A establish-tunnels immediately 
+set security ipsec vpn VPN_To_SRX210_A bind-interface st0.0
