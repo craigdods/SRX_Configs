@@ -17,7 +17,7 @@ set security policies from-zone DMZ to-zone DMZ policy DMZ_to_DMZ then log sessi
 
 set interfaces gr-0/0/0.0 tunnel source 172.16.30.2
 set interfaces gr-0/0/0.0 tunnel destination 172.16.30.1
-set interfaces gr-0/0/0.0 family inet address 172.16.31.6/30
+set interfaces gr-0/0/0.0 family inet address 172.16.30.6/30
 set security zones security-zone DMZ interfaces gr-0/0/0.0 host-inbound-traffic system-services ping
 set security zones security-zone VPN host-inbound-traffic system-services any-service
 set security zones security-zone DMZ host-inbound-traffic protocols ospf
